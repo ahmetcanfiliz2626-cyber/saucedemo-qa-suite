@@ -37,7 +37,7 @@ describe('LoginForm', () => {
     render(<LoginForm onSubmit={vi.fn()} />);
 
     expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-  });
+  })
 
   it('boş alanlarla submit edildiğinde onSubmit boş string ile çağrılır', () => {
     const onSubmit = vi.fn();

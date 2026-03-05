@@ -6,7 +6,7 @@ import {
   applyDiscount,
   sortProducts,
   formatPrice,
-} from './helpers';
+} from '../../src/utils/helpers';
 
 describe('validateEmail', () => {
   it('geçerli email formatını kabul eder', () => {
