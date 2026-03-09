@@ -2,17 +2,21 @@
 
 saucedemo.com üzerinde unit, component, API ve E2E seviyelerinde kapsamlı test altyapısı.
 
+## Proje Hakkında
+
+Bu repo, SauceDemo e-ticaret sitesi üzerinde dört farklı test seviyesini kapsayan bir QA suite'tir. Vitest ile unit ve component testleri, Supertest ve MSW ile API testleri, Playwright ile uçtan uca E2E testleri yazılmıştır. Hafta hafta ilerleyen bir öğrenme sürecinin çıktısıdır; her hafta klasörü o haftanın odak konusunu barındırır.
+
 ---
 
 ## Kullanılan Araçlar
 
-| Araç | Seviye |
-|------|--------|
-| Vitest | Unit |
-| React Testing Library | Component |
-| MSW | Integration |
-| Supertest | API |
-| Playwright | E2E |
+| Araç | Seviye | Kullanım |
+|------|--------|----------|
+| Vitest | Unit | Saf fonksiyon ve iş mantığı testleri |
+| React Testing Library | Component | UI bileşen davranış testleri |
+| MSW | Integration | API mock ile entegrasyon testleri |
+| Supertest | API | HTTP endpoint testleri |
+| Playwright | E2E | Tarayıcı üzerinde uçtan uca testler |
 
 ---
 
@@ -23,10 +27,13 @@ saucedemo.com üzerinde unit, component, API ve E2E seviyelerinde kapsamlı test
 npm test
 
 # E2E testler
-npx playwright test
+npm run test:e2e
 
 # E2E görsel mod
-npx playwright test --ui
+npm run test:e2e:ui
+
+# Codegen ile yeni test kaydetme
+npm run test:e2e:codegen
 ```
 
 ---
@@ -71,10 +78,35 @@ npx playwright test --ui
 
 ---
 
+## Proje Yapısı
+
+```
+saucedemo-qa-suite/
+├── week-1/
+│   ├── src/          # Unit test edilen kaynak kodlar
+│   └── tests/        # Unit + Component testleri (Vitest, RTL)
+├── week-2/
+│   ├── src/          # API kaynak kodları
+│   └── tests/        # API testleri (Supertest, MSW)
+├── week-3/
+│   └── tests/
+│       └── e2e/
+│           ├── pages/           # Page Object Model sınıfları
+│           ├── bug-discovery/   # Bug keşif testleri
+│           ├── bug-reports/     # Bulunan bug raporları
+│           ├── login.spec.ts    # Login E2E testleri
+│           └── shopping.spec.ts # Alışveriş akışı E2E testleri
+├── playwright.config.ts
+├── vitest.config.ts
+└── package.json
+```
+
+---
+
 ## Haftalık İlerleme
 
-- [x] Hafta 0: Ortam kurulumu
-- [x] Hafta 1: Unit + Component testler
-- [x] Hafta 2: API + E2E testler
-- [x] Hafta 3: POM + Bug Keşfi
-- [ ] Hafta 4: CI/CD + Final
+- [x] Hafta 0: Ortam kurulumu + SauceDemo manuel keşif
+- [x] Hafta 1: Unit testler (Vitest) + Component testler (RTL)
+- [x] Hafta 2: API testler (Supertest + MSW) + Playwright E2E ilk testler
+- [x] Hafta 3: POM + Bug Keşfi + Trace Viewer + Cross-browser
+- [ ] Hafta 4: CI/CD + Faker.js + Final repo
