@@ -120,6 +120,7 @@ test('BUG — checkout formu düzgün submit edilebilmeli', async ({ page }) => 
 
 // BUG: "Remove" butonu tıklanabilir ama sepetten ürünü silmez
 test('BUG — Remove butonu ürünü sepetten gerçekten silmeli', async ({ page }) => {
+  test.fail(true, 'Known bug: remove button does not work for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
 

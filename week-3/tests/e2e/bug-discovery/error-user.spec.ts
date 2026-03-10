@@ -57,6 +57,7 @@ test('BUG — Last Name boş kalınca "Last Name is required" hatası görünmel
 
 // BUG: sepetten ürün kaldırma çalışmıyor
 test('BUG — sepetten ürün kaldırma çalışmalı', async ({ page }) => {
+  test.fail(true, 'Known bug: remove button does not work for error_user');
   const inventory = new InventoryPage(page);
   await inventory.addToCart('sauce-labs-backpack');
   await inventory.goToCart();
