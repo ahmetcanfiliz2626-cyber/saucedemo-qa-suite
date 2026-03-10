@@ -108,5 +108,5 @@ saucedemo-qa-suite/
 - [x] Hafta 0: Ortam kurulumu + SauceDemo manuel keşif
 - [x] Hafta 1: Unit testler (Vitest) + Component testler (RTL)
 - [x] Hafta 2: API testler (Supertest + MSW) + Playwright E2E ilk testler
-- [x] Hafta 3: POM + Bug Keşfi + Trace Viewer + Cross-browser
-- [ ] Hafta 4: CI/CD + Faker.js + Final repo
+- [x] Hafta 3: POM + Bug Keşfi + Trace Viewer + Visual Testing
+- [ ] Hafta 4: CI/CD + GitHub Actions (devam ediyor)
