@@ -19,7 +19,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
-        run: npx playwright test --ignore='**/bug-discovery/**' --ignore='**/visual.spec.ts'
+        run: npx playwright test
       - name: Upload test report
         uses: actions/upload-artifact@v4
         if: always()
