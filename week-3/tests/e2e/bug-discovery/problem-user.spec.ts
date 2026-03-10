@@ -26,6 +26,7 @@ async function loginAsStandardUser(page: any) {
 
 // BUG: problem_user'da tüm ürün resimleri aynı yanlış görseli gösterir
 test('BUG — ürün resimleri standard_user ile aynı olmalı', async ({ browser }) => {
+  test.fail(true, 'Known bug: problem_user shows sl-404.jpg for all products');
   const standardCtx = await browser.newContext();
   const problemCtx = await browser.newContext();
 
@@ -51,6 +52,7 @@ test('BUG — ürün resimleri standard_user ile aynı olmalı', async ({ browse
 
 // BUG: bazı ürünlerde "Add to cart" tıklanabilir görünür ama sepete eklemez
 test('BUG — "Add to cart" tüm ürünlerde çalışmalı', async ({ page }) => {
+  test.fail(true, 'Known bug: some Add to cart buttons are unresponsive for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
 
@@ -67,6 +69,7 @@ test('BUG — "Add to cart" tüm ürünlerde çalışmalı', async ({ page }) =>
 
 // BUG: sıralama seçildiğinde ürünler gerçekte sıralanmaz
 test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page }) => {
+  test.fail(true, 'Known bug: sorting has no effect for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
 
@@ -83,6 +86,7 @@ test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page }) => {
 
 // BUG: ürün adına tıklayınca farklı bir ürünün detay sayfası açılır
 test('BUG — ürün detay sayfası tıklanan ürünle eşleşmeli', async ({ page }) => {
+  test.fail(true, 'Known bug: clicking a product opens a different product detail page for problem_user');
   await loginAsProblemUser(page);
 
   const firstName = await page.locator('.inventory_item_name').first().innerText();
@@ -98,6 +102,7 @@ test('BUG — ürün detay sayfası tıklanan ürünle eşleşmeli', async ({ pa
 
 // BUG: checkout formunda Last Name alanı doldurulmuyor / temizleniyor
 test('BUG — checkout formu düzgün submit edilebilmeli', async ({ page }) => {
+  test.fail(true, 'Known bug: Last Name field gets cleared on checkout for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
   await inventory.addToCart('sauce-labs-backpack');

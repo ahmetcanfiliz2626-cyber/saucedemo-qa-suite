@@ -18,6 +18,7 @@ test.beforeEach(async ({ page }) => {
 
 // BUG: Last Name alanına yazılan değer otomatik siliniyor
 test('BUG — Last Name alanı doldurulabilmeli ve silinmemeli', async ({ page }) => {
+  test.fail(true, 'Known bug: Last Name field is automatically cleared for error_user');
   const inventory = new InventoryPage(page);
   await inventory.addToCart('sauce-labs-backpack');
   await inventory.goToCart();
@@ -36,6 +37,7 @@ test('BUG — Last Name alanı doldurulabilmeli ve silinmemeli', async ({ page }
 
 // BUG: Last Name silindiğinde gösterilen hata mesajı doğru olmalı
 test('BUG — Last Name boş kalınca "Last Name is required" hatası görünmeli', async ({ page }) => {
+  test.fail(true, 'Known bug: error message for missing Last Name is not shown correctly for error_user');
   const inventory = new InventoryPage(page);
   await inventory.addToCart('sauce-labs-backpack');
   await inventory.goToCart();
@@ -68,6 +70,7 @@ test('BUG — sepetten ürün kaldırma çalışmalı', async ({ page }) => {
 
 // BUG: sıralama seçeneği değiştirildiğinde ürünler sıralanmıyor
 test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page }) => {
+  test.fail(true, 'Known bug: sorting has no effect for error_user');
   const inventory = new InventoryPage(page);
   await inventory.sortBy('lohi');
 

@@ -8,6 +8,7 @@ import { LoginPage } from '../pages/LoginPage';
  */
 
 test('login süresi 5 saniyeden az olmalı', async ({ page }) => {
+  test.fail(true, 'Known bug: performance_glitch_user login takes more than 5 seconds');
   const loginPage = new LoginPage(page);
   await loginPage.goto();
 
