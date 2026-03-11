@@ -88,3 +88,33 @@ test('checkout\'ta firstName boş bırak, hata mesajı çıkıyor mu', async ({ 
   await expect(error).toBeVisible();
   await expect(error).toContainText('First Name is required');
 });
+
+test('boş sepet — checkout butonuna tıkla, hata ya da engel var mı?', async ({ page }) => {
+  const loginPage = new LoginPage(page)
+  const inventoryPage = new InventoryPage(page)
+  const cartPage = new CartPage(page)
+
+  await page.goto('https://www.saucedemo.com/')
+  await loginPage.login('standard_user', 'secret_sauce')
+  await page.click('.shopping_cart_link')
+  await expect(cartPage.checkoutButton).toBeVisible()
+  await cartPage.checkoutButton.click()
+  // Boş sepette checkout'a izin verilmemeli ya da uyarı çıkmalı
+  await expect(page).not.toHaveURL(/checkout-step-two/)
+})
+
+test('checkout cancel — geri dön, sepet hala dolu mu?', async ({ page }) => {
+  const loginPage = new LoginPage(page)
+  const inventoryPage = new InventoryPage(page)
+  const cartPage = new CartPage(page)
+  const checkoutPage = new CheckoutPage(page)
+
+  await page.goto('https://www.saucedemo.com/')
+  await loginPage.login('standard_user', 'secret_sauce')
+  await inventoryPage.addToCart('Sauce Labs Backpack')
+  await page.click('.shopping_cart_link')
+  await cartPage.checkoutButton.click()
+  await page.click('[data-test="cancel"]')
+  await expect(page).toHaveURL(/cart/)
+  await expect(await cartPage.getItemCount()).toBe(1)
+})
