@@ -38,4 +38,13 @@ export class InventoryPage {
   async goToCart() {
     await this.page.locator('[data-test="shopping-cart-link"]').click();
   }
+
+  async openMenu() {
+    await this.page.click('#react-burger-menu-btn');
+  }
+
+  async logout() {
+    await this.openMenu();
+    await this.page.click('#logout_sidebar_link');
+  }
 }
