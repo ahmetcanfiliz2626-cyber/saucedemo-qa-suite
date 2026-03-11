@@ -25,7 +25,7 @@ async function loginAsStandardUser(page: any) {
 }
 
 // BUG: problem_user'da tüm ürün resimleri aynı yanlış görseli gösterir
-test('BUG — ürün resimleri standard_user ile aynı olmalı', async ({ browser }) => {
+test('BUG — ürün resimleri standard_user ile aynı olmalı', async ({ browser, testInfo }) => {
   test.fail(true, 'Known bug: problem_user shows sl-404.jpg for all products');
   const standardCtx = await browser.newContext();
   const problemCtx = await browser.newContext();
@@ -43,6 +43,8 @@ test('BUG — ürün resimleri standard_user ile aynı olmalı', async ({ browse
     (imgs: HTMLImageElement[]) => imgs.map((img) => img.src)
   );
 
+  await problemPage.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
+
   await standardCtx.close();
   await problemCtx.close();
 
@@ -51,7 +53,7 @@ test('BUG — ürün resimleri standard_user ile aynı olmalı', async ({ browse
 });
 
 // BUG: bazı ürünlerde "Add to cart" tıklanabilir görünür ama sepete eklemez
-test('BUG — "Add to cart" tüm ürünlerde çalışmalı', async ({ page }) => {
+test('BUG — "Add to cart" tüm ürünlerde çalışmalı', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: some Add to cart buttons are unresponsive for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
@@ -65,10 +67,11 @@ test('BUG — "Add to cart" tüm ürünlerde çalışmalı', async ({ page }) =>
 
   // Tüm ürünler eklendiyse badge = 6 olmalı — BUG: bazı butonlar çalışmaz
   await expect(inventory.cartBadge).toHaveText('6');
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
 
 // BUG: sıralama seçildiğinde ürünler gerçekte sıralanmaz
-test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page }) => {
+test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: sorting has no effect for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
@@ -82,10 +85,11 @@ test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page }) => {
   for (let i = 0; i < numbers.length - 1; i++) {
     expect(numbers[i]).toBeLessThanOrEqual(numbers[i + 1]);
   }
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
 
 // BUG: ürün adına tıklayınca farklı bir ürünün detay sayfası açılır
-test('BUG — ürün detay sayfası tıklanan ürünle eşleşmeli', async ({ page }) => {
+test('BUG — ürün detay sayfası tıklanan ürünle eşleşmeli', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: clicking a product opens a different product detail page for problem_user');
   await loginAsProblemUser(page);
 
@@ -98,10 +102,11 @@ test('BUG — ürün detay sayfası tıklanan ürünle eşleşmeli', async ({ pa
 
   // Detay sayfasındaki isim tıklanan ürünle aynı olmalı — BUG: farklı ürün açılır
   expect(detailName).toBe(firstName);
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
 
 // BUG: checkout formunda Last Name alanı doldurulmuyor / temizleniyor
-test('BUG — checkout formu düzgün submit edilebilmeli', async ({ page }) => {
+test('BUG — checkout formu düzgün submit edilebilmeli', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: Last Name field gets cleared on checkout for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
@@ -116,10 +121,11 @@ test('BUG — checkout formu düzgün submit edilebilmeli', async ({ page }) => 
 
   // Hata yoksa overview sayfasına geçmeli — BUG: Last Name silinir ve hata verir
   await expect(page).toHaveURL(/\/checkout-step-two\.html/);
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
 
 // BUG: "Remove" butonu tıklanabilir ama sepetten ürünü silmez
-test('BUG — Remove butonu ürünü sepetten gerçekten silmeli', async ({ page }) => {
+test('BUG — Remove butonu ürünü sepetten gerçekten silmeli', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: remove button does not work for problem_user');
   await loginAsProblemUser(page);
   const inventory = new InventoryPage(page);
@@ -132,4 +138,5 @@ test('BUG — Remove butonu ürünü sepetten gerçekten silmeli', async ({ page
 
   // Sepet boşalmalı — BUG: ürün hâlâ sepette görünür
   expect(await cart.getItemCount()).toBe(0);
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });

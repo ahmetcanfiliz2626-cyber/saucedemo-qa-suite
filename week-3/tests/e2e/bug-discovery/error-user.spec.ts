@@ -17,7 +17,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 // BUG: Last Name alanına yazılan değer otomatik siliniyor
-test('BUG — Last Name alanı doldurulabilmeli ve silinmemeli', async ({ page }) => {
+test('BUG — Last Name alanı doldurulabilmeli ve silinmemeli', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: Last Name field is automatically cleared for error_user');
   const inventory = new InventoryPage(page);
   await inventory.addToCart('sauce-labs-backpack');
@@ -33,10 +33,11 @@ test('BUG — Last Name alanı doldurulabilmeli ve silinmemeli', async ({ page }
 
   // Devam etmeden önce Last Name hâlâ dolu olmalı — BUG: alan temizlenir
   await expect(checkout.lastName).toHaveValue('Doe');
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
 
 // BUG: Last Name silindiğinde gösterilen hata mesajı doğru olmalı
-test('BUG — Last Name boş kalınca "Last Name is required" hatası görünmeli', async ({ page }) => {
+test('BUG — Last Name boş kalınca "Last Name is required" hatası görünmeli', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: error message for missing Last Name is not shown correctly for error_user');
   const inventory = new InventoryPage(page);
   await inventory.addToCart('sauce-labs-backpack');
@@ -53,10 +54,11 @@ test('BUG — Last Name boş kalınca "Last Name is required" hatası görünmel
 
   // BUG: error_user'da Last Name otomatik silindiğinden bu hata zaten tetiklenir
   await expect(page.locator('[data-test="error"]')).toContainText('Last Name is required');
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
 
 // BUG: sepetten ürün kaldırma çalışmıyor
-test('BUG — sepetten ürün kaldırma çalışmalı', async ({ page }) => {
+test('BUG — sepetten ürün kaldırma çalışmalı', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: remove button does not work for error_user');
   const inventory = new InventoryPage(page);
   await inventory.addToCart('sauce-labs-backpack');
@@ -67,10 +69,11 @@ test('BUG — sepetten ürün kaldırma çalışmalı', async ({ page }) => {
 
   // Sepet boşalmalı — BUG: ürün hâlâ sepette kalır
   expect(await cart.getItemCount()).toBe(0);
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
 
 // BUG: sıralama seçeneği değiştirildiğinde ürünler sıralanmıyor
-test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page }) => {
+test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page, testInfo }) => {
   test.fail(true, 'Known bug: sorting has no effect for error_user');
   const inventory = new InventoryPage(page);
   await inventory.sortBy('lohi');
@@ -83,4 +86,5 @@ test('BUG — low-to-high sıralama doğru çalışmalı', async ({ page }) => {
   for (let i = 0; i < numbers.length - 1; i++) {
     expect(numbers[i]).toBeLessThanOrEqual(numbers[i + 1]);
   }
+  await page.screenshot({ path: `week-3/tests/e2e/bug-reports/screenshots/${testInfo.title.replace(/[^a-z0-9]/gi, '-')}.png` });
 });
