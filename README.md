@@ -17,6 +17,7 @@ Bu repo, SauceDemo e-ticaret sitesi üzerinde dört farklı test seviyesini kaps
 | MSW | Integration | API mock ile entegrasyon testleri |
 | Supertest | API | HTTP endpoint testleri |
 | Playwright | E2E | Tarayıcı üzerinde uçtan uca testler |
+| Faker.js | Test Verisi | Dinamik ve rastgele test verisi üretimi |
 
 ---
 
@@ -47,7 +48,8 @@ npm run test:e2e:codegen
 | API | Supertest | 8 |
 | Integration | MSW | 4 |
 | E2E | Playwright | 18 |
-| **Toplam** | | **70** |
+| Hafta 4 | Extended Flows + Faker.js | 5 | ✅ |
+| **Toplam** | | **93+** |
 
 ---
 
@@ -88,6 +90,9 @@ saucedemo-qa-suite/
 ├── week-2/
 │   ├── src/          # API kaynak kodları
 │   └── tests/        # API testleri (Supertest, MSW)
+│
+│   > 📝 week-2 testleri pre-POM, week-3 testleri aynı senaryoların POM ile refactor edilmiş hali.
+│
 ├── week-3/
 │   └── tests/
 │       └── e2e/
@@ -95,7 +100,15 @@ saucedemo-qa-suite/
 │           ├── bug-discovery/   # Bug keşif testleri
 │           ├── bug-reports/     # Bulunan bug raporları
 │           ├── login.spec.ts    # Login E2E testleri
-│           └── shopping.spec.ts # Alışveriş akışı E2E testleri
+│           ├── shopping.spec.ts # Alışveriş akışı E2E testleri
+│           └── visual.spec.ts   # Visual regression testleri
+│
+│   > ⚠️ Visual testler lokal ortamda çalıştırılır (macOS baseline). CI'da exclude edilir.
+│
+├── week-4/
+│   └── tests/
+│       └── e2e/
+│           └── extended-flows.spec.ts  # Faker.js ile extended flow testleri
 ├── playwright.config.ts
 ├── vitest.config.ts
 └── package.json
@@ -109,4 +122,10 @@ saucedemo-qa-suite/
 - [x] Hafta 1: Unit testler (Vitest) + Component testler (RTL)
 - [x] Hafta 2: API testler (Supertest + MSW) + Playwright E2E ilk testler
 - [x] Hafta 3: POM + Bug Keşfi + Trace Viewer + Visual Testing
-- [ ] Hafta 4: CI/CD + GitHub Actions (devam ediyor)
+- [x] Hafta 4: CI/CD + GitHub Actions + Faker.js + Extended Flows
+
+### Hafta 4 — CI/CD + Faker.js
+- GitHub Actions CI/CD pipeline kuruldu
+- Her push'ta testler otomatik çalışıyor
+- Faker.js ile dinamik test verisi eklendi
+- 5 extended flow testi yazıldı
