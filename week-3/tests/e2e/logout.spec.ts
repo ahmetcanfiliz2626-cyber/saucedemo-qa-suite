@@ -7,6 +7,7 @@ test.describe('Logout', () => {
     const loginPage = new LoginPage(page)
     const inventoryPage = new InventoryPage(page)
 
+    await page.goto('https://www.saucedemo.com/')
     await loginPage.login('standard_user', 'secret_sauce')
     await inventoryPage.addToCart('Sauce Labs Backpack')
     await inventoryPage.logout()
