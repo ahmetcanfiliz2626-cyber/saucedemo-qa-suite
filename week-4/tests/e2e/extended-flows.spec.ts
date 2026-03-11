@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { faker } from '@faker-js/faker';
 import { LoginPage } from '../../../week-3/tests/e2e/pages/LoginPage';
 import { InventoryPage } from '../../../week-3/tests/e2e/pages/InventoryPage';
 import { CartPage } from '../../../week-3/tests/e2e/pages/CartPage';
@@ -24,7 +25,7 @@ test('tam satın alma flow\'u: login → ürün ekle → cart → checkout → f
   await cart.checkout();
 
   const checkout = new CheckoutPage(page);
-  await checkout.fillInfo('John', 'Doe', '12345');
+  await checkout.fillInfo(faker.person.firstName(), faker.person.lastName(), faker.location.zipCode());
   await expect(page).toHaveURL(/\/checkout-step-two\.html/);
 
   await checkout.finish();
@@ -45,7 +46,7 @@ test('birden fazla ürün sepete ekle, toplam fiyat doğru mu', async ({ page })
   await cart.checkout();
 
   const checkout = new CheckoutPage(page);
-  await checkout.fillInfo('John', 'Doe', '12345');
+  await checkout.fillInfo(faker.person.firstName(), faker.person.lastName(), faker.location.zipCode());
 
   const totalText = await checkout.getTotal();
   // Backpack $29.99 + Bike Light $9.99 = $39.98
@@ -81,7 +82,7 @@ test('checkout\'ta firstName boş bırak, hata mesajı çıkıyor mu', async ({ 
   await cart.checkout();
 
   const checkout = new CheckoutPage(page);
-  await checkout.fillInfo('', 'Doe', '12345');
+  await checkout.fillInfo('', faker.person.lastName(), faker.location.zipCode());
 
   const error = page.locator('[data-test="error"]');
   await expect(error).toBeVisible();
